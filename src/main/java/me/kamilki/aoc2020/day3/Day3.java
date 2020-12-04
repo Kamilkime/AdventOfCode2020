@@ -15,13 +15,9 @@ public final class Day3 {
     public static void main(final String[] args) throws IOException {
         final List<String> map = Files.readAllLines(dataFile.toPath());
 
-        System.out.println("Part 1, modulo lines: " + countTreesModulo(map, 1, 3));
-        System.out.println("Part 1, extended lines: " + countTreesExtend(map, 1, 3));
-
-        System.out.println("Part 2, modulo lines: " + (countTreesModulo(map, 1, 1) * countTreesModulo(map, 1, 3) *
-                countTreesModulo(map, 1, 5) * countTreesModulo(map, 1, 7) * countTreesModulo(map, 2, 1)));
-        System.out.println("Part 2, extended lines: " + (countTreesExtend(map, 1, 1) * countTreesExtend(map, 1, 3) *
-                countTreesExtend(map, 1, 5) * countTreesExtend(map, 1, 7) * countTreesExtend(map, 2, 1)));
+        System.out.println("Part 1: " + countTreesModulo(map, 1, 3)); // 216
+        System.out.println("Part 2: " + (countTreesModulo(map, 1, 1) * countTreesModulo(map, 1, 3) *
+                countTreesModulo(map, 1, 5) * countTreesModulo(map, 1, 7) * countTreesModulo(map, 2, 1))); // 6708199680
     }
 
     private static long countTreesModulo(final List<String> map, final int moveDown, final int moveRight) {
@@ -35,6 +31,7 @@ public final class Day3 {
         return trees;
     }
 
+    // A more 'primitive' version of the modulo approach - actually makes the lines longer and uses unchanged character positions
     private static long countTreesExtend(final List<String> map, final int moveDown, final int moveRight) {
         final List<String> extendedMap = new ArrayList<>();
 

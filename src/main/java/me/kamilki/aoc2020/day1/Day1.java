@@ -5,6 +5,7 @@ import me.kamilki.aoc2020.util.FileUtil;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,35 +17,26 @@ public final class Day1 {
         final List<Integer> numbers = Files.lines(dataFile.toPath()).map(Integer::parseInt).sorted().collect(Collectors.toList());
 
         final int[] part1 = findTwo(numbers, 2020, -1);
-        System.out.println("Part 1: " + (part1[0] * part1[1]));
+        System.out.println("Part 1: " + (part1[0] * part1[1])); // 719796
 
         final int[] part2 = findThree(numbers, 2020);
-        System.out.println("Part 2: " + (part2[0] * part2[1] * part2[2]));
+        System.out.println("Part 2: " + (part2[0] * part2[1] * part2[2])); // 144554112
     }
 
     private static int[] findTwo(final List<Integer> numbers, final int sum, final int ignoreIndex) {
-        final int middleValue = numbers.get(numbers.size() / 2);
-
         for (int i = 0; i < numbers.size(); i++) {
             if (i == ignoreIndex) {
                 continue;
             }
 
             final int remainder = sum - numbers.get(i);
-            if (remainder == middleValue) {
-                return new int[]{numbers.get(i), middleValue};
+            final int foundIndex = Collections.binarySearch(numbers, remainder);
+
+            if (foundIndex == ignoreIndex || foundIndex == i || foundIndex == -1) {
+                continue;
             }
 
-            final boolean bigger = remainder > middleValue;
-            for (int r = (bigger ? middleValue + 1 : 0); r < (bigger ? numbers.size() : numbers.size() / 2); r++) {
-                if (r == i || r == ignoreIndex) {
-                    continue;
-                }
-
-                if (remainder == numbers.get(r)) {
-                    return new int[]{numbers.get(i), numbers.get(r)};
-                }
-            }
+            return new int[]{numbers.get(i), remainder};
         }
 
         return new int[]{-1, -1};
@@ -63,6 +55,7 @@ public final class Day1 {
         return new int[]{-1, -1, -1};
     }
 
-    private Day1() {}
+    private Day1() {
+    }
 
 }
