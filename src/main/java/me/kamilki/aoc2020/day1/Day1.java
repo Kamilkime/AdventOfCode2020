@@ -55,7 +55,6 @@ public final class Day1 {
         return new int[]{-1, -1, -1};
     }
 
-    private Day1() {
-    }
+    private Day1() {}
 
 }
