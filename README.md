@@ -8,3 +8,4 @@ https://adventofcode.com/2020/
 
 ### Join our leaderboard
 Go to https://adventofcode.com/2020/leaderboard/private and use join code `1020718-438ec9bb`
+The leaderboard was created by @dawkocik
