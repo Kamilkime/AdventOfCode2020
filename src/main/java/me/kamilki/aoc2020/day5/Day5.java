@@ -29,7 +29,7 @@ public final class Day5 {
                 continue;
             }
 
-            seatIDs.add(decodePosition(0, 127, seatLine.substring(0, 7)) * 8 + decodePosition(0, 7, seatLine.substring(7, 10)));
+            seatIDs.add(decodePosition(seatLine));
         }
 
         Collections.sort(seatIDs);
@@ -44,23 +44,8 @@ public final class Day5 {
         return new int[]{-1, -1};
     }
 
-    private static int decodePosition(final int low, final int high, final String positionString) {
-        if (low == high) {
-            return low;
-        }
-
-        final int middle = (high - low) / 2 + low;
-
-        final char splitType = positionString.charAt(0);
-        if (splitType == 'F' || splitType == 'L') {
-            return decodePosition(low, middle, positionString.substring(1));
-        }
-
-        if (splitType == 'B' || splitType == 'R') {
-            return decodePosition(middle + 1, high, positionString.substring(1));
-        }
-
-        return -1;
+    private static int decodePosition(final String positionString) {
+        return Integer.parseInt(positionString.replaceAll("[FL]", "0").replaceAll("[BR]", "1"), 2);
     }
 
     private Day5() {}
